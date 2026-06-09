@@ -60,7 +60,49 @@ agora.toLocaleDateString("pt-BR");
 
 setInterval(atualizar,1000);
 atualizar();
+async function carregarMoedas() {
 
+    try {
+
+        const response = await fetch(
+            "https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL"
+        );
+
+        const data = await response.json();
+
+        document.getElementById("dolar").innerHTML =
+            `💵 Dólar: R$ ${Number(data.USDBRL.bid).toFixed(2)}`;
+
+        document.getElementById("euro").innerHTML =
+            `💶 Euro: R$ ${Number(data.EURBRL.bid).toFixed(2)}`;
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+carregarMoedas();
+setInterval(carregarMoedas, 300000);
+  async function carregarTemperatura() {
+
+    try {
+
+        const response = await fetch(
+            "https://wttr.in/Sao_Paulo?format=j1"
+        );
+
+        const data = await response.json();
+
+        document.getElementById("temperatura").innerHTML =
+            `🌡️ ${data.current_condition[0].temp_C}°C`;
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+carregarTemperatura();
+setInterval(carregarTemperatura, 300000);
 </script>
 
 </body>

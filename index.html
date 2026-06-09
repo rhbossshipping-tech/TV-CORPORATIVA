@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>TV Corporativa</title>
+
+<style>
+
+body{
+margin:0;
+background:#111;
+color:white;
+font-family:Arial,sans-serif;
+overflow:hidden;
+}
+
+#slide{
+width:100vw;
+height:90vh;
+object-fit:cover;
+}
+
+#barra{
+height:10vh;
+background:#003366;
+display:flex;
+justify-content:space-around;
+align-items:center;
+font-size:30px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img id="slide" src="https://picsum.photos/1920/1080">
+
+<div id="barra">
+<div id="hora"></div>
+<div id="data"></div>
+<div id="msg">TV Corporativa</div>
+</div>
+
+<script>
+
+function atualizar(){
+
+const agora = new Date();
+
+document.getElementById("hora").innerHTML =
+agora.toLocaleTimeString("pt-BR");
+
+document.getElementById("data").innerHTML =
+agora.toLocaleDateString("pt-BR");
+
+}
+
+setInterval(atualizar,1000);
+atualizar();
+
+</script>
+
+</body>
+</html>

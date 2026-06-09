@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,10 +17,9 @@
 }
 
 body{
-    background:#111;
-    color:white;
-    font-family:Arial, sans-serif;
     overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#000;
 }
 
 #slide{
@@ -32,10 +31,13 @@ body{
 #barra{
     height:10vh;
     background:#003366;
+    color:white;
+
     display:flex;
     justify-content:space-around;
     align-items:center;
-    font-size:22px;
+
+    font-size:24px;
     font-weight:bold;
 }
 
@@ -45,7 +47,7 @@ body{
 
 <body>
 
-<img id="slide" src="https://picsum.photos/1920/1080">
+<img id="slide" src="imagens/foto1.jpg">
 
 <div id="barra">
 
@@ -57,17 +59,44 @@ body{
         🌡️ Carregando...
     </div>
 
-    <div id="dolar">
-        💵 Carregando...
-    </div>
-
-    <div id="euro">
-        💶 Carregando...
+    <div>
+        📍 São Paulo
     </div>
 
 </div>
 
 <script>
+
+const imagens = [
+
+    "imagens/foto1.jpg",
+    "imagens/foto2.jpg",
+    "imagens/foto3.jpg",
+    "imagens/foto4.jpg"
+
+];
+
+let indice = 0;
+
+function trocarImagem(){
+
+    document.getElementById("slide").src =
+        imagens[indice];
+
+    indice++;
+
+    if(indice >= imagens.length){
+        indice = 0;
+    }
+
+}
+
+trocarImagem();
+
+setInterval(
+    trocarImagem,
+    10000
+);
 
 function atualizarHora(){
 
@@ -81,51 +110,24 @@ function atualizarHora(){
 
 }
 
-setInterval(atualizarHora,1000);
-atualizarHora();
-
-async function carregarMoedas(){
-
-    try{
-
-        const response = await fetch(
-            "https://www.bcb.gov.br/"
-        );
-
-        const data = await response.json();
-
-        document.getElementById("dolar").innerHTML =
-            "💵 Dólar: R$ " +
-            Number(data.USDBRL.bid).toFixed(2);
-
-        document.getElementById("euro").innerHTML =
-            "💶 Euro: R$ " +
-            Number(data.EURBRL.bid).toFixed(2);
-
-    }catch(error){
-
-        console.log(error);
-
-    }
-
-}
-
-carregarMoedas();
-
 setInterval(
-    carregarMoedas,
-    300000
+    atualizarHora,
+    1000
 );
+
+atualizarHora();
 
 async function carregarTemperatura(){
 
     try{
 
-        const response = await fetch(
+        const response =
+            await fetch(
             "https://wttr.in/Sao_Paulo?format=j1"
-        );
+            );
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
         document.getElementById("temperatura").innerHTML =
             "🌡️ " +
@@ -152,3 +154,4 @@ setInterval(
 </body>
 </html>
 ```
+
